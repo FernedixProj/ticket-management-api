@@ -18,7 +18,6 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @ToString
 public class Role extends AuditableEntity {

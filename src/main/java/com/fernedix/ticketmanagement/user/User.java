@@ -13,7 +13,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @ToString(exclude = "roles")
 public class User extends AuditableEntity {
@@ -39,15 +38,21 @@ public class User extends AuditableEntity {
     private String password;
 
     @Column(name = "enabled", nullable = false)
-    @Builder.Default
     private boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns =
         @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_user_roles_user")),
             inverseJoinColumns = @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "fk_user_roles_role")))
-    @Builder.Default
     private Set<Role> roles = new HashSet<>();
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+    }
 
 
 }
